@@ -14,9 +14,14 @@ import lombok.Setter;
 @Setter
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ticketID;
     private Integer NoOfBookSeats;
     private Integer AmtPaid;
+
+    //connecting to show bidirectionally
+    @JoinColumn
+    @ManyToOne
+    private Show show;
 
 }

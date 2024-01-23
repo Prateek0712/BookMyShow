@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity //Entity anotation requires noArgsConstructor
 @Table(name = "movie")
@@ -34,5 +36,9 @@ public class Movie {
 
     private LocalDate releaseDate;
     private Integer Duration;
+
+    //connection  to show bidirectionlly
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    List<Show> showList=new ArrayList<>();
 
 }

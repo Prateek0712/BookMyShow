@@ -24,4 +24,9 @@ public class showSeat {
     private Integer seatNo;
     private seatType seattype;
 
+    //connecting to  show as child
+    @JoinColumn
+    @ManyToOne
+    private Show show;
+
 }
