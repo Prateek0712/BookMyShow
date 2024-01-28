@@ -14,5 +14,6 @@ public class bookTicketRqst {
     private Integer showId;
     private List<String> seatNo;
     private seatType seattype;
+    private String userMail;
     private boolean foodAttached;
 }

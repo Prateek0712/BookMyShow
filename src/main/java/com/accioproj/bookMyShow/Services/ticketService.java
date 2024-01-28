@@ -1,12 +1,11 @@
 package com.accioproj.bookMyShow.Services;
 
 import com.accioproj.bookMyShow.Entity.*;
-import com.accioproj.bookMyShow.Repositories.movieRepo;
-import com.accioproj.bookMyShow.Repositories.showRepo;
-import com.accioproj.bookMyShow.Repositories.theaterRepo;
-import com.accioproj.bookMyShow.Repositories.ticketRepo;
+import com.accioproj.bookMyShow.Repositories.*;
 import com.accioproj.bookMyShow.Requests.bookTicketRqst;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +20,10 @@ public class ticketService {
     private theaterRepo theaterRepo1;
     @Autowired
     private showRepo showRepo1;
+    @Autowired
+    private userRepo userRepo1;
+    @Autowired
+    private JavaMailSender mailSender;
     public String bookTicket(bookTicketRqst ticketDto)throws Exception
     {
 
@@ -30,6 +33,12 @@ public class ticketService {
             throw new Exception("Show not available for given movie at given time in given Theater Try changing  time OR Movie OR Theater");
         }
         Show show=optionalShow.get();
+        Optional<User> optionalUser=userRepo1.findByEmailId(ticketDto.getUserMail());
+        if(optionalUser.isEmpty())
+        {
+            throw new Exception("Email does not Exist");
+        }
+        User user=optionalUser.get();
         //assign seats to  ticket
         List<ShowSeat>showSeatList=show.getShowSeatList();
         int totalAmt=0;
@@ -57,9 +66,20 @@ public class ticketService {
                 .showTime(show.getShowTime())
                 .showDate(show.getShowDate())
                 .show(show)
+                .user(user)
                 .build();
         show.getTicketList().add(ticket);
+        user.getTicketList().add(ticket);
         ticketRepo1.save(ticket);
+
+        SimpleMailMessage msg=new SimpleMailMessage();
+        msg.setTo(user.getEmailId());
+        msg.setFrom("pustakalay7120@gmail.com");
+        msg.setSubject("Hello "+user.getName());
+        msg.setText("Hey "+user.getName()+" Ticket book Successfully for "+ticket.getMovieName()+" At "+
+                ticket.getTheaterNameAndAdd()+" your seat  are "+ticket.getSeats()+" Reach 10-20 Prior To show Your show Time is "+
+                ticket.getShowTime()+" "+ticket.getShowDate());
+        mailSender.send(msg);
         return "Ticket Successfully Booked";
     }
 }
