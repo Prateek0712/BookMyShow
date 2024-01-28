@@ -3,10 +3,7 @@ package com.accioproj.bookMyShow.Entity;
 import com.accioproj.bookMyShow.Enums.Genre;
 import com.accioproj.bookMyShow.Enums.Languege;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +13,7 @@ import java.util.List;
 @Table(name = "movie")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder //this requires AllargsConstructor
 @Getter
 @Setter
 public class Movie {

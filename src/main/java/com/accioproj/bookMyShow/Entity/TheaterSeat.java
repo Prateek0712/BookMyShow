@@ -2,10 +2,7 @@ package com.accioproj.bookMyShow.Entity;
 
 import com.accioproj.bookMyShow.Enums.seatType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "theaterSeat")
@@ -13,12 +10,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class theaterSeat {
+@Builder
+public class TheaterSeat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer theaterSeatId;
 
-    private Integer seatNo;
+    private String seatNo;
     @Enumerated(value = EnumType.STRING)
     private seatType seattype;
 

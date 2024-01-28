@@ -1,10 +1,7 @@
 package com.accioproj.bookMyShow.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
 @Table(name = "theater")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 public class Theater {
@@ -27,9 +25,10 @@ public class Theater {
 
     //connecting to theaterSeat as parent
     @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
-    List<theaterSeat> theaterSeatList=new ArrayList<>();
+    List<TheaterSeat> theaterSeatList=new ArrayList<>();
 
     //connecting  to show as parent
     @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
     List<Show>showList=new ArrayList<>();
+
 }
