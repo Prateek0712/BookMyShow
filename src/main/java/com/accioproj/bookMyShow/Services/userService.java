@@ -23,10 +23,10 @@ public class userService {
                 .build();
         user =userRepo1.save(user);
         SimpleMailMessage sm=new SimpleMailMessage();
-        sm.setTo("pustakalay7120@gmail.com");
-        sm.setFrom(user.getEmailId());
+        sm.setFrom("pustakalay7120@gmail.com");
+        sm.setTo(user.getEmailId());
         sm.setSubject("Hello "+user.getName()+" ");
-        sm.setText("Hii "+user.getName()+" Login Succesfully Thanks for Chossing Pratik's Backend Server");
+        sm.setText("Hii "+user.getName()+" Login Succesfully Thanks for Choosing Pratik's Backend Server");
         mailSender.send(sm);
 
         return "User Added Succesfully";

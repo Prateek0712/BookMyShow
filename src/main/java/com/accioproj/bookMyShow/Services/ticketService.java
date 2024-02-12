@@ -50,6 +50,7 @@ public class ticketService {
             {
                 seat.setAvailable(Boolean.FALSE);
                 //bookedSeatAgainstTicket.add(seat);
+                seat.setFoodAttached(ticketDto.isFoodAttached());
                 totalAmt+=seat.getPrice();
             }
         }
@@ -76,9 +77,9 @@ public class ticketService {
         msg.setTo(user.getEmailId());
         msg.setFrom("pustakalay7120@gmail.com");
         msg.setSubject("Hello "+user.getName());
-        msg.setText("Hey "+user.getName()+" Ticket book Successfully for "+ticket.getMovieName()+" At "+
-                ticket.getTheaterNameAndAdd()+" your seat  are "+ticket.getSeats()+" Reach 10-20 Prior To show Your show Time is "+
-                ticket.getShowTime()+" "+ticket.getShowDate());
+        msg.setText("Hey "+user.getName()+" Your tickets book Successfully for "+ticket.getMovieName()+" at "+
+                ticket.getTheaterNameAndAdd()+". Your seats  are "+ticket.getSeats()+" Reach 10-20 Minutes prior to show. Your show Time is "+
+                ticket.getShowTime()+" "+ticket.getShowDate()+". And  Amount  of Rs "+ticket.getAmtPaid()+" is already Paid");
         mailSender.send(msg);
         return "Ticket Successfully Booked";
     }

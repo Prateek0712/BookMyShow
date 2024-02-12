@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class addUserRqst {
     private String name;
-    private Integer phoneNo;
+    private String phoneNo;
     private String email;
 }

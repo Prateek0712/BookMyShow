@@ -71,7 +71,7 @@ public class showService {
                 .seatNo(tSeat.getSeatNo())
                 .seattype(tSeat.getSeattype())
                 .Available(Boolean.TRUE)
-                        .price(200)
+                        .price(showSeatDto.getPriceOfPrimium())
                 .foodAttached(Boolean.FALSE)
                 .seattype(seatType.PRIMIUM)
                 .show(shows)
@@ -88,7 +88,7 @@ public class showService {
                         .Available(Boolean.TRUE)
                         .foodAttached(Boolean.FALSE)
                         .seattype(seatType.CLASSIC)
-                        .price(100)
+                        .price(showSeatDto.getPriceOfClassic())
                         .show(shows)
                         .build();
                 showSeatList.add(showS);

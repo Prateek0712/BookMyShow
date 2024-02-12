@@ -1,14 +1,13 @@
 package com.accioproj.bookMyShow.Controllers;
 
+import com.accioproj.bookMyShow.Requests.GetRevenueRqst;
 import com.accioproj.bookMyShow.Requests.addTheaterRqst;
 import com.accioproj.bookMyShow.Requests.addTheaterSeatRqst;
 import com.accioproj.bookMyShow.Services.theaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Theater")
@@ -27,5 +26,17 @@ public class theaterController {
     {
         String resp=theaterService.addTheaterSeats(theaterSeatDto);
         return new ResponseEntity(resp,HttpStatus.CREATED);
+    }
+    @GetMapping("/CalculateRevenue")
+    public ResponseEntity GetRevenueForMovie(@RequestBody GetRevenueRqst revenueRqst)
+    {
+        try{
+            Integer resp=theaterService.GetRevenue(revenueRqst);
+            return new ResponseEntity(resp,HttpStatus.OK);
+        }
+        catch(Exception e)
+        {
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
     }
 }
