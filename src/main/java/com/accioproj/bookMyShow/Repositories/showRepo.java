@@ -8,12 +8,21 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface showRepo extends JpaRepository<Show,Integer> {
     Optional<Show> findByMovieAndTheaterAndShowDateAndShowTime(Movie movie, Theater theater, LocalDate showDate, LocalTime showTime);
 
     Optional<Show> findByShowDateAndShowTimeAndMovieAndTheater(LocalDate showDate, LocalTime showTime, Movie movie, Theater theater);
+
+    List<Show> findByMovieAndShowDate(Movie movie, LocalDate showDate);
+
+
+
+
+
+
 
 
 }

@@ -11,6 +11,7 @@ import com.accioproj.bookMyShow.Requests.addShowSeatRqst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -109,6 +110,26 @@ public class showService {
         showRepo1.save(shows);
         return "Succefully Releases Seat  for  Show with ID-- "+shows.getShowId();
     }
-
+    public List<String> getAllShow(String movieName, LocalDate date) throws Exception
+    {
+        Optional<Movie> optionalMovie=movieRepo1.findByMovieName(movieName);
+        if(optionalMovie.isEmpty())
+        {
+            throw new Exception("Movie Not Yet Release");
+        }
+        Movie movie=optionalMovie.get();
+        List<Show>showList=showRepo1.findByMovieAndShowDate(movie,date);
+        List<String>showAndTheaterList=new ArrayList<>();
+        for(Show s:showList)
+        {
+            showAndTheaterList.add("showId: "+s.getShowId()+" theater name: "+s.getTheater().getTheaterName()+
+                    " Address: "+s.getTheater().getTheaterAddress());
+        }
+        if(showAndTheaterList.isEmpty())
+        {
+            throw new Exception("No shows for this movie on given Date");
+        }
+        return showAndTheaterList;
+    }
 
 }
