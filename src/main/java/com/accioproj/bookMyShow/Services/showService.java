@@ -61,6 +61,10 @@ public class showService {
         }
         Show shows= optionalShow.get();
         List<ShowSeat>showSeatList=new ArrayList<>();
+        if(showSeatList.size()>0)
+        {
+            throw new Exception("Seats already  Alloted");
+        }
         Theater theater=shows.getTheater();
         List<TheaterSeat>theaterSeatList=theater.getTheaterSeatList();
         for(int i=0;i<theaterSeatList.size();i++)

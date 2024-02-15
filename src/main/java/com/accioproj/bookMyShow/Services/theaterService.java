@@ -81,28 +81,26 @@ public class theaterService {
         }
         Theater theater=optionalTheater.get();
         List<Show>showList=theater.getShowList();
+        int  revenue=0;
         for(Show s:showList)
         {
+            System.out.println(s.getMovie().getMovieName());
             if(s.getMovie().getMovieName().equals(revenueRqst.getMovieName()))
             {
-                continue;
-            }
-            showList.remove(s);
-        }
-        if(showList.isEmpty())
-        {
-            throw new Exception("No movie with  given name is available at this theater");
-        }
-        int  revenue=0;
-        for(Show s: showList)
-        {
-            for(ShowSeat ss: s.getShowSeatList())
-            {
-                if(ss.getAvailable().equals(Boolean.FALSE))
+                System.out.println("True");
+                for(ShowSeat ss: s.getShowSeatList())
                 {
-                    revenue+=ss.getPrice();
+                    if(ss.getAvailable().equals(Boolean.FALSE))
+                    {
+                        revenue+=ss.getPrice();
+                        System.out.println("True");
+                    }
                 }
             }
+        }
+        if(revenue==0)
+        {
+            throw new Exception("No movie with  given name is available at this theater");
         }
         return revenue;
 
